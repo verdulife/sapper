@@ -1,24 +1,19 @@
 <script>
   import { content } from "./content";
-  import { GET, POST, PUT, DELETE } from "./_api";
+  import { GET, POST } from "./_api";
 
   const ui = content["es"];
-  let input;
 
-  async function getApi() {
-    const res = await GET();
+  const user = {};
+
+  async function addUser() {
+    const req = await POST(user);
   }
 
-  async function postApi() {
-    const res = await POST({ name: input });
-  }
+  async function getUser() {
+    const req = await GET();
 
-  async function postApi() {
-    const res = await PUT({ name: input });
-  }
-
-  async function postApi() {
-    const res = await DELETE({ name: input });
+    console.log(await req);
   }
 </script>
 
@@ -27,21 +22,19 @@
 </svelte:head>
 
 <h1>{ui.title}</h1>
-<input class="out semi xfill" type="text" bind:value={input} />
-<div class="row">
-  <button class="pri semi" on:click={getApi}>GET</button>
-  <button class="pri semi" on:click={postApi}>POST</button>
-  <button class="pri semi" on:click={putApi}>PUT</button>
-  <button class="pri semi" on:click={delApi}>DELETE</button>
-</div>
+
+<form on:submit|preventDefault={addUser}>
+  <input class="out semi" type="text" placeholder="User" bind:value={user.name} />
+  <input class="out semi" type="number" placeholder="Age" bind:value={user.age} />
+  <select class="out semi" bind:value={user.prime}>
+    <option value={true}>true</option>
+    <option value={false}>false</option>
+  </select>
+
+  <button class="pri semi" type="submit">send</button>
+</form>
+
+<button class="pri semi" on:click={getUser}>GET</button>
 
 <style lang="scss">
-  input {
-    margin-bottom: 1em;
-  }
-
-  button {
-    margin-right: 1em;
-    color: $white;
-  }
 </style>
