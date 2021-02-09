@@ -20,6 +20,7 @@ const user = new User({
 
 user.save().then(() => console.log("User added"));
  */
+
 export function post(req, res, next) {
   console.log(req.body);
 }
