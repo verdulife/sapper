@@ -1,15 +1,5 @@
 <script>
   import { content } from "./content";
-  import { User } from "../../database";
-
-  const user = new User({
-    name: "Verdu",
-    age: 33,
-    prime: true,
-    list: ["hello", "bye"],
-  });
-  
-  user.save().then(() => console.log("User added"));
 
   const ui = content["es"];
 </script>
