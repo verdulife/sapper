@@ -1,19 +1,23 @@
 <script>
-  import { content } from "./content";
-  import { GET, POST } from "./_api";
+  import { content } from "./_content";
+  import { PRINT } from "./_api";
 
   const ui = content["es"];
+  let value;
 
-  const user = {};
+  async function print() {
+    const req = await PRINT({ msg: value });
+    console.log(req);
 
-  async function addUser() {
-    const req = await POST(user);
-  }
+    if (req.status === 200) {
+      const res = await req.blob();
+      const file = window.URL.createObjectURL(res);
+      const link = document.createElement("a");
 
-  async function getUser() {
-    const req = await GET();
-
-    console.log(await req);
+      link.href = file;
+      link.download = "file.pdf";
+      link.click();
+    }
   }
 </script>
 
@@ -23,18 +27,8 @@
 
 <h1>{ui.title}</h1>
 
-<form on:submit|preventDefault={addUser}>
-  <input class="out semi" type="text" placeholder="User" bind:value={user.name} />
-  <input class="out semi" type="number" placeholder="Age" bind:value={user.age} />
-  <select class="out semi" bind:value={user.prime}>
-    <option value={true}>true</option>
-    <option value={false}>false</option>
-  </select>
-
-  <button class="pri semi" type="submit">send</button>
-</form>
-
-<button class="pri semi" on:click={getUser}>GET</button>
+<input type="text" class="out semi" bind:value />
+<button class="pri semi" on:click={print}>GET</button>
 
 <style lang="scss">
 </style>
