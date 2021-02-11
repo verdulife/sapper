@@ -32,8 +32,7 @@ export function post(req, res, next) {
     height: mm(297),
   });
 
-  doc.font(type)
-    .fontSize(8);
+  doc.font(type).fontSize(8);
 
   doc.text(data.num, mm(168), mm(31));
   doc.text(data.date, mm(168), mm(36));
@@ -47,14 +46,14 @@ export function post(req, res, next) {
   for (let l = 0; l < data.lines.length; l++) {
     const line = data.lines[l];
     const jump = mm(5.5) * l;
-    const with_dto = line.price * line.dto / 100;
-    const line_total = (with_dto <= 0 ? line.price : with_dto * line.amount)
+    const with_dto = (line.price * line.dto) / 100;
+    const line_total = line.price - with_dto * line.amount;
 
-    doc.text(line.amount, mm(27), (mm(97) + jump));
-    doc.text(line.label, mm(38), (mm(97) + jump));
-    doc.text(`${line.dto}%`, mm(139), (mm(97) + jump));
-    doc.text(`${line.price.toFixed(2)}€`, mm(150), (mm(97) + jump));
-    doc.text(`${line_total.toFixed(2)}€`, mm(168), (mm(97) + jump));
+    doc.text(line.amount, mm(27), mm(97) + jump);
+    doc.text(line.label, mm(38), mm(97) + jump);
+    doc.text(`${line.dto}%`, mm(139), mm(97) + jump);
+    doc.text(`${line.price.toFixed(2)}€`, mm(150), mm(97) + jump);
+    doc.text(`${line_total.toFixed(2)}€`, mm(168), mm(97) + jump);
 
     base += line_total;
   }
@@ -69,9 +68,7 @@ export function post(req, res, next) {
   doc.text(`${base.toFixed(2)}€`, mm(63.5), mm(238));
   doc.text(`-${with_ret.toFixed(2)}€`, mm(96), mm(238));
   doc.text(`${with_iva.toFixed(2)}€`, mm(128), mm(238));
-  doc
-    .fillColor("#fff")
-    .text(`${total.toFixed(2)}€`, mm(154), mm(238));
+  doc.fillColor("#fff").text(`${total.toFixed(2)}€`, mm(154), mm(238));
 
   doc.end();
 }
