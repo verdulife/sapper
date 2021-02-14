@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 import { resolve } from "path";
 
 const mm = (size) => size * 2.83465;
-const bill = readFileSync(resolve(process.cwd(), "static", "fac-ret-15.svg"), { encoding: "utf-8" });
+const bill = readFileSync(resolve(process.cwd(), "static", "bill.svg"), { encoding: "utf-8" });
 const type = resolve(process.cwd(), "static", "fonts", "OperatorMonoLig-Medium.ttf");
 
 PDFDocument.prototype.svg = function (svg, x, y, options) {

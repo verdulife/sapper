@@ -1,17 +1,18 @@
 <script>
+  import { content } from "./Nav.content";
+  const ui = content["es"];
   export let segment;
 </script>
 
 <nav class="row jbetween acenter xfill">
-  <a class="logo" href="."> verdu </a>
+  <a class="logo" href=".">{ui.logo}</a>
 
   <ul class="row">
-    <li>
-      <a class={segment === undefined ? "active" : ""} href=".">home</a>
-    </li>
-    <li>
-      <a class={segment === "about" ? "active" : ""} href="about">about</a>
-    </li>
+    {#each ui.pages as page}
+      <li>
+        <a class={segment === (page.slug === "." ? undefined : page.slug) ? "active" : ""} href={page.slug}>{page.title}</a>
+      </li>
+    {/each}
   </ul>
 </nav>
 

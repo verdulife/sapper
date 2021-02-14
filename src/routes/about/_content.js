@@ -1,10 +1,10 @@
 export const content = {
-    es: {
-        page: "Sobre",
-        title: "Sobre esta página",
-    },
-    en: {
-        page: "About",
-        title: "About this page",
-    }
+  es: {
+    page: "Sobre",
+    title: "Hecha con mucho ❤",
+  },
+  en: {
+    page: "About",
+    title: "Made with lots of ❤",
+  },
 };

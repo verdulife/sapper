@@ -1,6 +1,5 @@
 <script>
   import { content } from "./_content";
-
   const ui = content["es"];
 </script>
 
