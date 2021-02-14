@@ -1,16 +1,16 @@
 <script>
+  import { locale } from "../locale";
   import Nav from "../components/Nav.svelte";
 
-  let lang = "es";
   export let segment;
 </script>
 
 <svelte:head>
-  <html {lang} />
+  <html lang={locale} />
 </svelte:head>
 
 <main>
-  <Nav {segment} />
+  <Nav {segment} {locale} />
 
   <div class="scroll">
     <slot />

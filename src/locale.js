@@ -1,8 +1,10 @@
-import { init, getLocaleFromNavigator } from 'svelte-i18n';
+export let locale = "es";
 
-init({
-    fallbackLocale: 'en',
-    initialLocale: getLocaleFromNavigator(),
-});
+if (process.browser && navigator.language) {
+  const userLang = navigator.language;
 
-export const locale = getLocaleFromNavigator()
+  if (!userLang.startsWith("es")) {
+    if (userLang.startsWith("en")) locale = "en";
+    else if (userLang.startsWith("ca")) locale = "ca";
+  }
+}

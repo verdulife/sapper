@@ -1,6 +1,8 @@
 <script>
+  import { locale } from "../../locale";
   import { content } from "./_content";
-  const ui = content["es"];
+
+  const ui = content[locale];
 </script>
 
 <svelte:head>

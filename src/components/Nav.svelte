@@ -1,7 +1,9 @@
 <script>
   import { content } from "./Nav.content";
-  const ui = content["es"];
+  import { locale } from "../locale";
+
   export let segment;
+  const ui = content[locale];
 </script>
 
 <nav class="row jbetween acenter xfill">
