@@ -1,7 +1,6 @@
 import { Users, userSchema } from "./_db";
 
 export async function get(req, res, next) {
-  if (req.params) console.log(req.params);
   try {
     res.json(await Users.find());
   } catch (error) {
@@ -11,8 +10,8 @@ export async function get(req, res, next) {
 
 export async function post(req, res, next) {
   try {
-    const value = await userSchema.validateAsync(req.body);
-    const inserted = await Users.insert(value);
+    const validUser = await userSchema.validateAsync(req.body);
+    const inserted = await Users.insert(validUser);
     res.json(inserted);
   } catch (error) {
     next(error);

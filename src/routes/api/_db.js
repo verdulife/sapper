@@ -4,12 +4,21 @@ import Joi from "joi";
 
 const db = monk(process.env.MONGO_URI || "localhost/verdu");
 
-//COLLECTIONS
+// COLLECTIONS
 export const Users = db.get("users");
+Users.createIndex("username", { unique: true });
 
-//SCHEMAS
+// SCHEMAS
 export const userSchema = Joi.object({
-  name: Joi.string().required(),
-  age: Joi.number().required(),
-  prime: Joi.boolean(),
+  _created: Joi.date().required(),
+  _updated: Joi.date().required(),
+  email: Joi.string().email().required(),
+  username: Joi.string().alphanum().min(2).max(30).required(),
+  password: Joi.string().trim().min(8).required(),
+  modules: Joi.object().keys({
+    analytics: Joi.boolean(),
+    translate: Joi.boolean(),
+    print: Joi.boolean(),
+    images: Joi.boolean(),
+  }),
 });

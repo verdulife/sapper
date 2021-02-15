@@ -63,3 +63,17 @@ export async function PRINT(objData) {
     return req;
   }
 }
+
+export async function AUTH(objData) {
+  if (process.browser) {
+    const req = await fetch("api/auth", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(objData),
+    });
+
+    return req;
+  }
+}

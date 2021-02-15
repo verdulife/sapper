@@ -11,7 +11,11 @@ const dev = NODE_ENV === "development";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: `http://localhost:${PORT}`,
+  })
+);
 
 app.use(compression({ threshold: 0 }), sirv("static", { dev }), sapper.middleware()).listen(PORT, (err) => {
   if (err) console.log("error", err);
