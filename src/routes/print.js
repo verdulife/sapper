@@ -1,4 +1,4 @@
-import PDFDocument from "pdfkit";
+/* import PDFDocument from "pdfkit";
 import SVGtoPDF from "svg-to-pdfkit";
 import { readFileSync } from "fs";
 import { resolve } from "path";
@@ -72,3 +72,4 @@ export function post(req, res, next) {
 
   doc.end();
 }
+ */

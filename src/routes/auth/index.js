@@ -1,4 +1,4 @@
-import { Users, userSchema } from "../_db";
+/* import { Users, userSchema } from "../_db";
 import bcrypt from "bcryptjs";
 
 export async function get(req, res, next) {
@@ -36,3 +36,4 @@ export async function post(req, res, next) {
     next(error);
   }
 }
+ */

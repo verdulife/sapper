@@ -1,5 +1,6 @@
 <script>
   import { locale } from "../locale";
+  import { fly } from "svelte/transition";
   import Nav from "../components/Nav.svelte";
 
   export let segment;
@@ -10,11 +11,13 @@
 </svelte:head>
 
 <main>
-  <Nav {segment} {locale} />
+  <Nav {segment} />
 
-  <div class="scroll">
-    <slot />
-  </div>
+  {#key segment}
+    <div class="scroll" in:fly out:fly>
+      <slot />
+    </div>
+  {/key}
 </main>
 
 <style lang="scss" global>
@@ -22,6 +25,7 @@
   @import "../../node_modules/verdu/verdu";
 
   .scroll {
-    padding: 2em;
+    height: calc(100% - 70px) !important;
+    padding: 1.5em;
   }
 </style>

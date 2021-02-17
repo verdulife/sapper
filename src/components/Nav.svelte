@@ -12,7 +12,10 @@
   <ul class="row">
     {#each ui.pages as page}
       <li>
-        <a class={segment === (page.slug === "." ? undefined : page.slug) ? "active" : ""} href={page.slug}>{page.title}</a>
+        <a
+          class:active={segment === (page.slug === "." ? undefined : page.slug)}
+          href={page.slug}>{page.title}</a
+        >
       </li>
     {/each}
   </ul>
@@ -20,7 +23,6 @@
 
 <style lang="scss">
   nav {
-    padding: 1em 2em;
     border-bottom: 1px solid $border;
 
     .logo {
@@ -29,7 +31,8 @@
     }
 
     a {
-      margin-left: 1em;
+      padding: 1.5em;
+      margin-bottom: -1px;
     }
 
     .active {
