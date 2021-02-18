@@ -2,6 +2,7 @@
   export async function preload(page, session) {
     const req = await this.fetch("/messages.db");
     const messages = await req.json();
+    messages.reverse();
 
     return { messages };
   }
@@ -50,7 +51,12 @@
 
 <ul class="col xfill">
   {#each messages as message}
-    <li class="box round xfill">{message.message}</li>
+    <li class="box round xfill">
+      <h4>{message.message}</h4>
+      <small class="row jend">
+        {new Date(message._created).toLocaleDateString()}
+      </small>
+    </li>
   {/each}
 </ul>
 
@@ -81,6 +87,11 @@
   ul {
     li {
       margin-bottom: 0.25em;
+
+      small {
+        color: $grey;
+        font-size: 10px;
+      }
     }
   }
 </style>
