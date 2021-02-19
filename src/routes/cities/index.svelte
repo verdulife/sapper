@@ -1,8 +1,6 @@
 <script context="module">
   export async function preload(page, session) {
-    const req = await this.fetch(
-      "https://mp-establecimientos.vercel.app/assets/data/municipios.json"
-    );
+    const req = await this.fetch("cities/get.db");
     const cities = await req.json();
 
     return { cities };
@@ -42,7 +40,7 @@
     <li class="xfill">
       <a
         class="box round row jbetween xfill"
-        href="cities/{city.nm.replaceAll(' ', '-')}"
+        href="cities/{city.nm.replaceAll(' ', '-').replaceAll('/', '_')}"
       >
         <h4>{city.nm}</h4>
         <pre>{city.id}</pre>

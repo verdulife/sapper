@@ -1,12 +1,7 @@
 <script context="module">
   export async function preload(page, session) {
-    const req = await this.fetch(
-      "https://mp-establecimientos.vercel.app/assets/data/municipios.json"
-    );
-    const cities = await req.json();
-    const city = await cities.filter(
-      (c) => c.nm.replaceAll(" ", "-") === page.params.slug
-    )[0];
+    const req = await this.fetch(`cities/${page.params.slug}.db`);
+    const city = await req.json();
 
     return { city };
   }
@@ -14,6 +9,7 @@
 
 <script>
   import { locale } from "../../locale";
+  import Index from "../index.svelte";
   import { content } from "./_content";
 
   const ui = content[locale];
@@ -29,13 +25,10 @@
   <p>city id: {city.id}</p>
 </div>
 
-<style lang="scss">
-  li {
-    margin-bottom: 0.25em;
-  }
+<a class="btn pri semi" href="javascript:history.back()">Back to cities</a>
 
-  a,
-  a span {
-    cursor: pointer;
+<style lang="scss">
+  .box {
+    margin-bottom: 1em;
   }
 </style>
