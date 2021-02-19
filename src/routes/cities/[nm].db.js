@@ -6,7 +6,7 @@ export async function get(req, res, next) {
         const fetchRes = await fetchReq.json();
 
         const city = await fetchRes.filter(
-            (c) => c.nm.replaceAll(" ", "-").replaceAll("/", "_") === req.params.nm
+            (c) => c.nm.split(" ").join("-").split("/").join("_") === req.params.nm
         )[0];
 
         res.json(city);
