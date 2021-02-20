@@ -4035,10 +4035,10 @@ vary@^1, vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-verdu@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/verdu/-/verdu-1.3.2.tgz#7befffa34ea0f41b6d90b4176da957d19facc974"
-  integrity sha512-XFFt8n5LO2KAc3x+sp+NtWTiQQTHfr09ZlHrastCRBI0iusEI9vKSpKOlljC1EREssQMny9RV14/Lfp58qEasg==
+verdu@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/verdu/-/verdu-1.3.3.tgz#6fc64e60372765a9ea50aee79f12ff944c8758cf"
+  integrity sha512-ZWmQJHyuUoFf1LfmC/t2r68HkBkgFp+JppGXIRKiL3bgXbl3vAPPr0/0srtpPItu+C+Q3jD2ORrz9CTSwOHCUg==
 
 verror@1.10.0:
   version "1.10.0"

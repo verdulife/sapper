@@ -5,11 +5,11 @@ export function ADD(method, body) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
-  }
-};
+  };
+}
 
 export function DEL() {
   return {
     method: "DELETE",
-  }
-};
+  };
+}

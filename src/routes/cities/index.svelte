@@ -15,9 +15,7 @@
   export let cities;
 
   let search = "";
-  $: filtered = cities.filter(
-    (item) => item.nm.toLowerCase().indexOf(search.toLowerCase()) !== -1
-  );
+  $: filtered = cities.filter((item) => item.nm.toLowerCase().indexOf(search.toLowerCase()) !== -1);
 </script>
 
 <svelte:head>
@@ -26,22 +24,14 @@
 
 <h1>{ui.title}</h1>
 
-<input
-  bind:value={search}
-  class="out semi xfill"
-  type="text"
-  placeholder="Buscar"
-/>
+<input bind:value={search} class="out semi xfill" type="text" placeholder="Buscar" />
 
 <h-div />
 
 <ul class="col xfill">
   {#each filtered as city}
     <li class="xfill">
-      <a
-        class="box round row jbetween xfill"
-        href="cities/{city.nm.replaceAll(' ', '-').replaceAll('/', '_')}"
-      >
+      <a rel="preload" class="box round row jbetween xfill" href="cities/{city.nm.split(' ').join('-').split('/').join('_')}">
         <h4>{city.nm}</h4>
         <pre>{city.id}</pre>
       </a>

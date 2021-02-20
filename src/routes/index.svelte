@@ -11,7 +11,7 @@
 <script>
   import { content } from "./_content";
   import { locale } from "../locale";
-  import { ADD } from "../api";
+  import { ADD, DEL } from "../api";
 
   const ui = content[locale];
   export let messages;
@@ -28,6 +28,20 @@
       this.reset();
     }
   }
+
+  async function delMessage(id, i) {
+    const check = confirm("¿Borrar?");
+
+    if (check) {
+      const req = await fetch(`/${id}.db`, DEL());
+      const res = await req.json();
+
+      if (res) {
+        messages.splice(i, 1);
+        messages = messages;
+      }
+    }
+  }
 </script>
 
 <svelte:head>
@@ -38,23 +52,20 @@
 
 <form class="box round col xfill" on:submit|preventDefault={postMessage}>
   <label for="message">{ui.form_label}</label>
-  <input
-    class="out semi xfill"
-    type="text"
-    name="message"
-    placeholder={ui.form_label}
-    required
-  />
+  <input class="out semi xfill" type="text" name="message" placeholder={ui.form_label} required />
 
   <button class="pri semi xfill">{ui.form_btn}</button>
 </form>
 
 <ul class="col xfill">
-  {#each messages as message}
+  {#each messages as message, i}
     <li class="box round xfill">
-      <h4>{message.message}</h4>
+      <div class="row jbetween xfill">
+        <h4>{message.message}</h4>
+        <div class="del-btn" on:click={delMessage(message._id, i)}>[x]</div>
+      </div>
       <small class="row jend">
-        {new Date(message._created).toLocaleDateString()}
+        {new Date(message._created).toLocaleTimeString()} - {new Date(message._created).toLocaleDateString()}
       </small>
     </li>
   {/each}
@@ -63,6 +74,10 @@
 <style lang="scss">
   h1 {
     margin-bottom: 1em;
+  }
+
+  .box {
+    background: $white;
   }
 
   form {
@@ -76,17 +91,20 @@
     }
 
     input {
-      margin-bottom: 1em;
-    }
-
-    button {
-      color: $white;
+      margin-bottom: 0.5em;
     }
   }
 
   ul {
     li {
       margin-bottom: 0.25em;
+
+      .del-btn {
+        cursor: pointer;
+        font-family: "Operator Mono Lig";
+        color: $sec;
+        margin-bottom: 0.5em;
+      }
 
       small {
         color: $grey;

@@ -1,6 +1,6 @@
 <script context="module">
-  export async function preload(page, session) {
-    const req = await this.fetch(`cities/${page.params.slug}.db`);
+  export async function preload({ params }, session) {
+    const req = await this.fetch(`cities/${params.slug}.db`);
     const city = await req.json();
 
     return { city };

@@ -1,6 +1,6 @@
 <script>
   import { locale } from "../locale";
-  import { fly } from "svelte/transition";
+  import { slide } from "svelte/transition";
   import { stores } from "@sapper/app";
   import Nav from "../components/Nav.svelte";
 
@@ -17,7 +17,7 @@
   <Nav {segment} />
 
   {#key segment}
-    <div class="scroll" in:fly out:fly>
+    <div class="scroll" transition:slide>
       <slot />
     </div>
   {/key}
