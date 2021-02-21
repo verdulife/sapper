@@ -1,6 +1,6 @@
 <script>
   import { getContext } from "svelte";
-  import { content } from "./_content";
+  import { content } from "./Nav.content";
 
   const locale = getContext("locale");
 
