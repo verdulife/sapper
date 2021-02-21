@@ -17,7 +17,7 @@
   export let cities;
 
   let search = "";
-  $: filtered = cities.filter((item) => item.nm.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+  $: filtered = cities.filter((city) => city.nm.toLowerCase().indexOf(search.toLowerCase()) !== -1);
 </script>
 
 <svelte:head>
@@ -31,7 +31,7 @@
 <h-div />
 
 <ul class="col xfill">
-  {#each filtered as city}
+  {#each filtered.slice(0, filtered.length) as city}
     <li class="xfill">
       <a rel="preload" class="box round row jbetween xfill" href="cities/{city.nm.split(' ').join('-').split('/').join('_')}">
         <h4>{city.nm}</h4>
