@@ -1,12 +1,24 @@
+<script context="module">
+  export async function preload(page, { locale }) {
+    const def = "en";
+
+    if (locale !== "es") return { locale: def };
+    else return { locale: "es" };
+  }
+</script>
+
 <script>
-  import { locale } from "../locale";
+  import { setContext } from "svelte";
   import { slide } from "svelte/transition";
   import { stores } from "@sapper/app";
-  import Nav from "../components/Nav.svelte";
+  import Nav from "./_components/Nav.svelte";
 
   const { preloading } = stores();
 
+  export let locale;
   export let segment;
+
+  setContext("locale", locale);
 </script>
 
 <svelte:head>
@@ -17,7 +29,7 @@
   <Nav {segment} />
 
   {#key segment}
-    <div class="scroll" transition:slide>
+    <div class="scroll" in:slide>
       <slot />
     </div>
   {/key}

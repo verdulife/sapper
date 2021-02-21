@@ -1,4 +1,4 @@
-import { Messages, messageSchema } from "../db";
+import { Messages, messageSchema } from "./_helpers/db";
 
 export async function get(req, res, next) {
   try {

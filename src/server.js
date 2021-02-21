@@ -17,6 +17,18 @@ app.use(
   })
 );
 
-app.use(compression({ threshold: 0 }), sirv("static", { dev }), sapper.middleware()).listen(PORT, (err) => {
-  if (err) console.log("error", err);
-});
+app
+  .use(
+    compression({ threshold: 0 }),
+    sirv("static", { dev }),
+    sapper.middleware({
+      session: (req, res) => {
+        return {
+          locale: req.headers["accept-language"].substring(0, 2),
+        };
+      },
+    })
+  )
+  .listen(PORT, (err) => {
+    if (err) console.log("error", err);
+  });

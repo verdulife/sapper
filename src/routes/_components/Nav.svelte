@@ -1,6 +1,8 @@
 <script>
-  import { content } from "./Nav.content";
-  import { locale } from "../locale";
+  import { getContext } from "svelte";
+  import { content } from "./_content";
+
+  const locale = getContext("locale");
 
   export let segment;
   const ui = content[locale];

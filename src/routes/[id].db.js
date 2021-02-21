@@ -1,4 +1,4 @@
-import { Messages } from "../db";
+import { Messages } from "./_helpers/db";
 
 export async function del(req, res, next) {
   try {

@@ -1,6 +1,8 @@
 <script>
+  import { getContext } from "svelte";
   import { content } from "./_content";
-  import { locale } from "../locale";
+
+  const locale = getContext("locale");
 
   export let status;
   export let error;

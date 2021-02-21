@@ -7,12 +7,8 @@ export const content = {
         title: "Inicio",
       },
       {
-        slug: "about",
-        title: "Sobre",
-      },
-      {
         slug: "cities",
-        title: "Cities",
+        title: "Ciudades",
       },
     ],
   },
@@ -22,10 +18,6 @@ export const content = {
       {
         slug: ".",
         title: "Home",
-      },
-      {
-        slug: "about",
-        title: "About",
       },
       {
         slug: "cities",

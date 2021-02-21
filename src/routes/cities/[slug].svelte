@@ -8,9 +8,10 @@
 </script>
 
 <script>
-  import { locale } from "../../locale";
-  import Index from "../index.svelte";
+  import { getContext } from "svelte";
   import { content } from "./_content";
+
+  const locale = getContext("locale");
 
   const ui = content[locale];
   export let city;
@@ -22,10 +23,10 @@
 
 <div class="box round col xfill">
   <h1>{city.nm}</h1>
-  <p>city id: {city.id}</p>
+  <p>{ui.city_id}: {city.id}</p>
 </div>
 
-<a class="btn pri semi" href="javascript:history.back()">Back to cities</a>
+<a class="btn pri semi" href="javascript:history.back()">{ui.back_link}</a>
 
 <style lang="scss">
   .box {

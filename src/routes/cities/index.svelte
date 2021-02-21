@@ -1,6 +1,6 @@
 <script context="module">
   export async function preload(page, session) {
-    const req = await this.fetch("cities/get.db");
+    const req = await this.fetch("/cities.db");
     const cities = await req.json();
 
     return { cities };
@@ -8,8 +8,10 @@
 </script>
 
 <script>
-  import { locale } from "../../locale";
+  import { getContext } from "svelte";
   import { content } from "./_content";
+
+  const locale = getContext("locale");
 
   const ui = content[locale];
   export let cities;
@@ -24,7 +26,7 @@
 
 <h1>{ui.title}</h1>
 
-<input bind:value={search} class="out semi xfill" type="text" placeholder="Buscar" />
+<input bind:value={search} class="out semi xfill" type="text" placeholder={ui.search} />
 
 <h-div />
 

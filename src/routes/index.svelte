@@ -1,6 +1,6 @@
 <script context="module">
   export async function preload(page, session) {
-    const req = await this.fetch("/messages.db");
+    const req = await this.fetch("/index.db");
     const messages = await req.json();
     messages.reverse();
 
@@ -9,18 +9,19 @@
 </script>
 
 <script>
+  import { getContext } from "svelte";
   import { content } from "./_content";
-  import { locale } from "../locale";
-  import { ADD, DEL } from "../api";
+  import { ADD, DEL } from "./_helpers/api";
 
-  const ui = content[locale];
+  const locale = getContext("locale");
   export let messages;
+  const ui = content[locale];
 
   async function postMessage() {
     const form = new FormData(this);
     const message = form.get("message");
 
-    const req = await fetch("/messages.db", ADD("post", { message }));
+    const req = await fetch("/index.db", ADD("post", { message }));
     const res = await req.json();
 
     if (res) {
