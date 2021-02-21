@@ -1,10 +1,13 @@
 <script context="module">
   export async function preload({ query }, session) {
+    const { logged } = query;
+    if (!logged) this.redirect(302, "login");
+
     const req = await this.fetch("/index.db");
     const messages = await req.json();
     messages.reverse();
 
-    return { messages, query };
+    return { messages };
   }
 </script>
 
@@ -12,12 +15,8 @@
   import { getContext } from "svelte";
   import { content } from "./_content";
   import { ADD, DEL } from "./_helpers/api";
-  import Login from "./login.svelte";
 
   export let messages;
-  export let query;
-
-  let { logged } = query;
 
   const locale = getContext("locale");
   const ui = content[locale];
@@ -54,32 +53,28 @@
   <title>{ui.page}</title>
 </svelte:head>
 
-{#if !logged}
-  <Login />
-{:else}
-  <h1>{ui.title}</h1>
+<h1>{ui.title}</h1>
 
-  <form class="box round col xfill" on:submit|preventDefault={postMessage}>
-    <label for="message">{ui.form_label}</label>
-    <input class="out semi xfill" type="text" name="message" placeholder={ui.form_label} required />
+<form class="box round col xfill" on:submit|preventDefault={postMessage}>
+  <label for="message">{ui.form_label}</label>
+  <input class="out semi xfill" type="text" name="message" placeholder={ui.form_label} required />
 
-    <button class="pri semi xfill">{ui.form_btn}</button>
-  </form>
+  <button class="pri semi xfill">{ui.form_btn}</button>
+</form>
 
-  <ul class="col xfill">
-    {#each messages as message, i}
-      <li class="box round xfill">
-        <div class="row jbetween xfill">
-          <h4>{message.message}</h4>
-          <div class="del-btn" on:click={delMessage(message._id, i)}>[x]</div>
-        </div>
-        <small class="row jend">
-          {new Date(message._created).toLocaleTimeString()} - {new Date(message._created).toLocaleDateString()}
-        </small>
-      </li>
-    {/each}
-  </ul>
-{/if}
+<ul class="col xfill">
+  {#each messages as message, i}
+    <li class="box round xfill">
+      <div class="row jbetween xfill">
+        <h4>{message.message}</h4>
+        <div class="del-btn" on:click={delMessage(message._id, i)}>[x]</div>
+      </div>
+      <small class="row jend">
+        {new Date(message._created).toLocaleTimeString()} - {new Date(message._created).toLocaleDateString()}
+      </small>
+    </li>
+  {/each}
+</ul>
 
 <style lang="scss">
   h1 {
