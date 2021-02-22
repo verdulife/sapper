@@ -14,7 +14,7 @@
 <script>
   import { getContext } from "svelte";
   import { content } from "./_content";
-  import { ADD, DEL } from "./_helpers/api";
+  import { ADD, DEL } from "./_helpers/methods";
 
   export let messages;
 

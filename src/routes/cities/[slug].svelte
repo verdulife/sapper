@@ -26,7 +26,7 @@
   <p>{ui.city_id}: {city.id}</p>
 </div>
 
-<a class="btn pri semi" href="javascript:history.back()">{ui.back_link}</a>
+<a class="btn pri semi" href="/cities">{ui.back_link}</a>
 
 <style lang="scss">
   .box {
