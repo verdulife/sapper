@@ -14,7 +14,8 @@
 
       const res = await req.json();
 
-      goto(`/?logged=${res}`);
+      console.log(res);
+      goto(`/?logged=${1}`);
     } catch (error) {
       errorMessage = error;
     }
