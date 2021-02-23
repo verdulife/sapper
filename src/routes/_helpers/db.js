@@ -16,6 +16,7 @@ export const userSchema = Joi.object({
   username: Joi.string().alphanum().min(2).max(30).required(),
   password: Joi.string().alphanum().min(8).required(),
   email: Joi.string().email().required(),
+  verified_email: Joi.boolean().required(),
 });
 
 export const messageSchema = Joi.object({
