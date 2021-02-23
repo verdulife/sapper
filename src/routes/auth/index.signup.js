@@ -6,8 +6,8 @@ async function verificationEmail(userData) {
   const testAccount = await nodemailer.createTestAccount();
   const transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
-    port: 465,
-    secure: true,
+    port: 587,
+    secure: false,
     auth: {
       user: testAccount.user,
       pass: testAccount.pass,
@@ -15,10 +15,14 @@ async function verificationEmail(userData) {
   });
 
   const info = await transporter.sendMail({
-    from: '"verdu 🖤" <verdu@live.com>',
+    from: testAccount.user,
     to: userData.email,
     subject: "Email verification ✔",
-    html: `<b>http://localhost:3000/auth/${userData.password}</b>`,
+    html: `
+      <p>Click on the next link to verify your account.</p>
+      <br />
+      <a href="http://localhost:3000/auth/${userData._id}">VERIFI YOUR ACCOUNT</a>
+    `,
   });
 
   console.log("Message sent: %s", info.messageId);
@@ -42,7 +46,7 @@ export async function post(req, res, next) {
     const insertedUser = await Users.insert(newUser);
     delete insertedUser.password;
 
-    verificationEmail(newUser);
+    verificationEmail(insertedUser);
 
     res.json(insertedUser);
   } catch (error) {
