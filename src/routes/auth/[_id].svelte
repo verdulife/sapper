@@ -3,15 +3,10 @@
     const { _id } = page.params;
 
     const req = await this.fetch(`auth/${_id}.verify`);
-    const res = await req.json();
+    if (!req.ok) return { verification: "invalid verification" };
 
-    return { res };
+    const verification = await req.json();
+    if (verification) this.redirect(302, "login?verification_message=ok");
+    else this.redirect(302, "login?verification_message=error");
   }
 </script>
-
-<script>
-  export let res;
-  console.log(res);
-</script>
-
-<pre>{JSON.stringify(res, null, 2)}</pre>

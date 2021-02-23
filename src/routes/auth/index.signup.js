@@ -1,8 +1,9 @@
 import { Users, userSchema } from "../_helpers/db";
 import bcrypt from "bcryptjs";
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 async function verificationEmail(userData) {
+  const { _id, email } = userData;
   const testAccount = await nodemailer.createTestAccount();
   const transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
@@ -12,16 +13,19 @@ async function verificationEmail(userData) {
       user: testAccount.user,
       pass: testAccount.pass,
     },
+    tls: {
+      rejectUnauthorized: false,
+    },
   });
 
   const info = await transporter.sendMail({
     from: testAccount.user,
-    to: userData.email,
+    to: email,
     subject: "Email verification ✔",
     html: `
       <p>Click on the next link to verify your account.</p>
       <br />
-      <a href="http://localhost:3000/auth/${userData._id}">VERIFI YOUR ACCOUNT</a>
+      <a href="http://localhost:3000/auth/${_id}">VERIFY ACCOUNT</a>
     `,
   });
 

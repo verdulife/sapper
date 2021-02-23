@@ -3,12 +3,13 @@ import { Users } from "../_helpers/db";
 export async function get(req, res, next) {
   try {
     const { _id } = req.params;
-    const verified = await Users.findOne({ _id });
+    const verified = await Users.findOneAndUpdate({ _id }, {
+      $set: { verified_email: true }
+    });
 
-    if (!verified) throw new Error("this email verification has expired");
-    delete verified.password;
+    if (!verified) throw new Error("email verification has expired");
 
-    res.json({ verified });
+    res.json({ verification: true })
   } catch (error) {
     next(error);
   }
