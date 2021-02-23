@@ -30,7 +30,7 @@
   }
 </script>
 
-{#if verification_message}
+{#if verification_message === "ok"}
   <div class="success-box box round xfill" in:slide>
     Your account was verified. Now you can login
   </div>
