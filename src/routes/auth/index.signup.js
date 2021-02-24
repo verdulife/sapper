@@ -1,36 +1,35 @@
 import { Users, userSchema } from "../_helpers/db";
 import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
+import { template } from "./_email-templates/verify";
 
-async function verificationEmail(userData) {
+async function verificationEmail(userData, req) {
   const { _id, email } = userData;
-  const testAccount = await nodemailer.createTestAccount();
+
+  // const testAccount = await nodemailer.createTestAccount();
+
   const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false,
+    host: "smtp-es.securemail.pro",
+    port: 465,
+    secure: true,
     auth: {
-      user: testAccount.user,
-      pass: testAccount.pass,
-    },
-    tls: {
-      rejectUnauthorized: false,
+      user: "hola@menuplis.com",
+      pass: process.env.SMTP_URI || "88Menuplismail",
     },
   });
 
+  const action_url = req.headers.host;
+  console.log(action_url);
+
   const info = await transporter.sendMail({
-    from: testAccount.user,
+    from: "'Menuplis' <hola@menuplis.com>",
     to: email,
     subject: "Email verification ✔",
-    html: `
-      <p>Click on the next link to verify your account.</p>
-      <br />
-      <a href="http://localhost:3000/auth/${_id}">VERIFY ACCOUNT</a>
-    `,
+    html: template(`${action_url}/auth/${_id}`),
   });
 
   console.log("Message sent: %s", info.messageId);
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 }
 
 export async function post(req, res, next) {
@@ -50,7 +49,7 @@ export async function post(req, res, next) {
     const insertedUser = await Users.insert(newUser);
     delete insertedUser.password;
 
-    verificationEmail(insertedUser);
+    verificationEmail(insertedUser, req);
 
     res.json(insertedUser);
   } catch (error) {

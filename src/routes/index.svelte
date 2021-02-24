@@ -53,30 +53,37 @@
   <title>{ui.page}</title>
 </svelte:head>
 
-<h1>{ui.title}</h1>
+<div class="home">
+  <h1>{ui.title}</h1>
 
-<form class="box round col xfill" on:submit|preventDefault={postMessage}>
-  <label for="message">{ui.form_label}</label>
-  <input class="out semi xfill" type="text" name="message" placeholder={ui.form_label} required />
+  <form class="box round col xfill" on:submit|preventDefault={postMessage}>
+    <label for="message">{ui.form_label}</label>
+    <input class="out semi xfill" type="text" name="message" placeholder={ui.form_label} required />
 
-  <button class="pri semi xfill">{ui.form_btn}</button>
-</form>
+    <button class="pri semi xfill">{ui.form_btn}</button>
+  </form>
 
-<ul class="col xfill">
-  {#each messages as message, i}
-    <li class="box round xfill">
-      <div class="row jbetween xfill">
-        <h4>{message.message}</h4>
-        <div class="del-btn" on:click={delMessage(message._id, i)}>[x]</div>
-      </div>
-      <small class="row jend">
-        {new Date(message._created).toLocaleTimeString()} - {new Date(message._created).toLocaleDateString()}
-      </small>
-    </li>
-  {/each}
-</ul>
+  <ul class="col xfill">
+    {#each messages as message, i}
+      <li class="box round xfill">
+        <div class="row jbetween xfill">
+          <h4>{message.message}</h4>
+          <div class="del-btn" on:click={delMessage(message._id, i)}>[x]</div>
+        </div>
+        <small class="row jend">
+          {new Date(message._created).toLocaleTimeString()} - {new Date(message._created).toLocaleDateString()}
+        </small>
+      </li>
+    {/each}
+  </ul>
+</div>
 
 <style lang="scss">
+  .home {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
   h1 {
     margin-bottom: 1em;
   }

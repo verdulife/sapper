@@ -24,24 +24,31 @@
   <title>{ui.page}</title>
 </svelte:head>
 
-<h1>{ui.title}</h1>
+<div class="cities">
+  <h1>{ui.title}</h1>
 
-<input bind:value={search} class="out semi xfill" type="text" placeholder={ui.search} />
+  <input bind:value={search} class="out semi xfill" type="text" placeholder={ui.search} />
 
-<h-div />
+  <h-div />
 
-<ul class="col xfill">
-  {#each filtered.slice(0, filtered.length) as city}
-    <li class="xfill">
-      <a rel="preload" class="box round row jbetween xfill" href="cities/{city.nm.split(' ').join('-').split('/').join('_')}">
-        <h4>{city.nm}</h4>
-        <pre>{city.id}</pre>
-      </a>
-    </li>
-  {/each}
-</ul>
+  <ul class="col xfill">
+    {#each filtered.slice(0, filtered.length) as city}
+      <li class="xfill">
+        <a rel="preload" class="box round row jbetween xfill" href="cities/{city.nm.split(' ').join('-').split('/').join('_')}">
+          <h4>{city.nm}</h4>
+          <pre>{city.id}</pre>
+        </a>
+      </li>
+    {/each}
+  </ul>
+</div>
 
 <style lang="scss">
+  .cities {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
   h-div {
     margin: 2em 0;
   }

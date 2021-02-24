@@ -9,9 +9,11 @@ export async function post(req, res, next) {
     const user = await Users.findOne({ username });
 
     if (!user) throw new Error("user not found");
-    const comparedPassword = await bcrypt.compare(password, user.password);
+    if (!user.verified_email) throw new Error("account was not verified. please check your inbox.");
 
+    const comparedPassword = await bcrypt.compare(password, user.password);
     if (!comparedPassword) throw new Error("Incorrect password");
+
     const payload = { _id: user._id, username: user.username };
 
     jwt.sign(

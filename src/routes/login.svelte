@@ -30,48 +30,38 @@
   }
 </script>
 
-{#if verification_message === "ok"}
-  <div class="success-box box round xfill" in:slide>
-    Your account was verified. Now you can login
-  </div>
-{/if}
-
-<h1 class="xfill">Login</h1>
-
-<form class="box round col" on:submit|preventDefault={logIn}>
-  <input
-    bind:value={login_form.username}
-    class="out semi xfill"
-    type="text"
-    placeholder="Username"
-    required
-  />
-  <input
-    bind:value={login_form.password}
-    class="out semi xfill"
-    type="password"
-    placeholder="Password"
-    required
-  />
-
-  <button class="pri semi xfill">Send</button>
-
-  {#if errorMessage}
-    <div class="error-box box round xfill" in:slide>{errorMessage}</div>
+<div class="login">
+  {#if verification_message === "ok"}
+    <div class="success-box box round xfill" in:slide>Your account was verified. Now you can login</div>
   {/if}
-</form>
 
-<a class="xfill" href="/signup">Not have a user yet? Get one now</a>
+  <h1 class="xfill">Login</h1>
+
+  <form class="box round col" on:submit|preventDefault={logIn}>
+    <input bind:value={login_form.username} class="out semi xfill" type="text" placeholder="Username" required />
+    <input bind:value={login_form.password} class="out semi xfill" type="password" placeholder="Password" required />
+
+    <button class="pri semi xfill">Send</button>
+
+    {#if errorMessage}
+      <div class="error-box box round xfill" in:slide>{errorMessage}</div>
+    {/if}
+  </form>
+
+  <a class="xfill" href="/signup">Not have a user yet? Get one now</a>
+</div>
 
 <style lang="scss">
+  .login {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
   h1 {
     text-align: center;
   }
 
   form {
-    max-width: 600px;
-    margin: 0 auto;
-
     input {
       margin-bottom: 1em;
     }
