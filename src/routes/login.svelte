@@ -9,6 +9,7 @@
   import { goto } from "@sapper/app";
   import { slide } from "svelte/transition";
   import { ADD } from "./_helpers/methods";
+  import { session_token } from "./_stores/localstore";
 
   export let verification_message;
   let login_form = {};
@@ -21,8 +22,7 @@
       if (!req.ok) throw await req.text();
 
       const res = await req.json();
-
-      console.log(res);
+      session_token.set(res.token);
       goto(`/?logged=${1}`);
     } catch (error) {
       errorMessage = error;

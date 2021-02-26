@@ -1,8 +1,18 @@
 require("dotenv").config();
 import monk from "monk";
 import Joi from "joi";
+import jwt from "jsonwebtoken";
 
 const db = monk(process.env.MONGO_URI || "localhost/verdu");
+
+export function genAndResToken(user, res) {
+  const payload = { _id: user._id, username: user.username };
+
+  jwt.sign(payload, process.env.TOKEN_SECRET || "NotARealSecreTT0k3nBaby&ItsNotR3allyLong@AllT00!", { expiresIn: "12h" }, (err, token) => {
+    if (err) throw new Error(err);
+    res.json({ token });
+  });
+}
 
 // COLLECTIONS
 export const Users = db.get("users");

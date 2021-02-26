@@ -1,7 +1,6 @@
 require("dotenv").config();
-import { Users } from "../_helpers/db";
+import { Users, genAndResToken } from "../_helpers/db";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 
 export async function post(req, res, next) {
   try {
@@ -14,19 +13,7 @@ export async function post(req, res, next) {
     const comparedPassword = await bcrypt.compare(password, user.password);
     if (!comparedPassword) throw new Error("Incorrect password");
 
-    const payload = { _id: user._id, username: user.username };
-
-    jwt.sign(
-      payload,
-      process.env.TOKEN_SECRET || "NotARealSecreTT0k3nBaby&ItsNotR3allyLong@AllT00!",
-      {
-        expiresIn: "12h",
-      },
-      (err, token) => {
-        if (err) throw new Error(err);
-        res.json({ token });
-      }
-    );
+    genAndResToken(user, res);
   } catch (error) {
     next(error);
   }
