@@ -6,10 +6,6 @@ export const content = {
         slug: ".",
         title: "Inicio",
       },
-      {
-        slug: "cities",
-        title: "Ciudades",
-      },
     ],
   },
   en: {
@@ -18,10 +14,6 @@ export const content = {
       {
         slug: ".",
         title: "Home",
-      },
-      {
-        slug: "cities",
-        title: "Cities",
       },
     ],
   },

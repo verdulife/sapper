@@ -1,15 +1,14 @@
 <script context="module">
   export function preload(page, session) {
-    const { verification_message } = page.query;
-    return { verification_message };
+    if (session.user) this.redirect(302, "/");
   }
 </script>
 
 <script>
-  import { goto } from "@sapper/app";
+  import { goto, stores } from "@sapper/app";
   import { slide } from "svelte/transition";
   import { ADD } from "./_helpers/methods";
-  import { session_token } from "./_stores/localstore";
+  const { session } = stores();
 
   export let verification_message;
   let login_form = {};
@@ -18,12 +17,12 @@
   async function logIn() {
     try {
       const req = await fetch("/auth.login", ADD("post", login_form));
-
       if (!req.ok) throw await req.text();
 
       const res = await req.json();
-      session_token.set(res.token);
-      goto(`/?logged=${1}`);
+      $session.token = res.token;
+
+      goto("/");
     } catch (error) {
       errorMessage = error;
     }

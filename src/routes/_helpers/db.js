@@ -8,8 +8,9 @@ const db = monk(process.env.MONGO_URI || "localhost/verdu");
 export function genAndResToken(user, res) {
   const payload = { _id: user._id, username: user.username };
 
-  jwt.sign(payload, process.env.TOKEN_SECRET || "NotARealSecreTT0k3nBaby&ItsNotR3allyLong@AllT00!", { expiresIn: "12h" }, (err, token) => {
-    if (err) throw new Error(err);
+  jwt.sign(payload, process.env.TOKEN_SECRET || "NotARealSecreTT0k3nBaby&ItsNotR3allyLong@AllT00!", { expiresIn: "2000ms" }, (error, token) => {
+    if (error) throw new Error(error);
+    res.cookie("token", token, { httpOnly: true, secure: false, overwrite: true });
     res.json({ token });
   });
 }

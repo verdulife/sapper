@@ -1,9 +1,11 @@
+import { isLoggedIn } from "../middlewares";
 import { Messages, messageSchema } from "./_helpers/db";
 
 export async function get(req, res, next) {
   try {
+    const { user } = req;
     const messages = await Messages.find();
-    res.json(messages);
+    res.json({ user, messages });
   } catch (error) {
     next(error);
   }

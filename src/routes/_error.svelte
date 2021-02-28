@@ -15,13 +15,13 @@
   <title>{status}</title>
 </svelte:head>
 
-<div class="view col acenter">
+<div class="col acenter">
   <img src="/404.jpg" alt={status} />
 
   <a href="." class="btn pri semi">{ui.error}</a>
 
   {#if dev && error.stack}
-    <pre>{error.stack}</pre>
+    <pre class="xfill">{error.stack}</pre>
   {/if}
 </div>
 
@@ -35,6 +35,6 @@
 
   a.btn {
     color: $white;
-    margin-top: 3em;
+    margin: 3em 0;
   }
 </style>

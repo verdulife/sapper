@@ -1,13 +1,22 @@
 <script context="module">
-  export async function preload({ query }, session) {
-    const { logged } = query;
-    if (!logged) this.redirect(302, "login");
+  export async function preload(page, session) {
+    try {
+      const { token } = session;
+      if (!token) throw "Not logged";
 
-    const req = await this.fetch("/index.db");
-    const messages = await req.json();
-    messages.reverse();
+      const req = await this.fetch("/index.db", { headers: { authorization: `Bearer ${token}` } });
+      if (!req.ok) throw "Session expired";
 
-    return { messages };
+      const res = await req.json();
+      const { user, messages } = res;
+      messages.reverse();
+
+      return { user, messages };
+    } catch (error) {
+      console.log(error);
+      session.token = undefined;
+      this.redirect(302, "/login");
+    }
   }
 </script>
 
@@ -16,6 +25,7 @@
   import { content } from "./_content";
   import { ADD, DEL } from "./_helpers/methods";
 
+  export let user = { username: "fake" };
   export let messages;
 
   const locale = getContext("locale");
@@ -54,7 +64,7 @@
 </svelte:head>
 
 <div class="home">
-  <h1>{ui.title}</h1>
+  <h1>{ui.title} <span>{user.username}</span></h1>
 
   <form class="box round col xfill" on:submit|preventDefault={postMessage}>
     <label for="message">{ui.form_label}</label>
@@ -86,6 +96,10 @@
 
   h1 {
     margin-bottom: 1em;
+
+    span {
+      text-transform: capitalize;
+    }
   }
 
   .box {

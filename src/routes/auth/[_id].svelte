@@ -6,7 +6,8 @@
     if (!req.ok) return { verification: "invalid verification" };
 
     const verification = await req.json();
-    if (verification) this.redirect(302, "login?verification_message=ok");
-    else this.redirect(302, "login?verification_message=error");
+
+    session.token = verification;
+    this.redirect(302, "/");
   }
 </script>

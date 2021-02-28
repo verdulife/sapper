@@ -1,5 +1,6 @@
 <script context="module">
-  export async function preload(page, { locale }) {
+  export async function preload(page, session) {
+    const { locale } = session;
     const def = "en";
 
     if (locale !== "es") return { locale: def };
@@ -11,7 +12,6 @@
   import { setContext } from "svelte";
   import { slide } from "svelte/transition";
   import { stores } from "@sapper/app";
-  import { session_token } from "./_stores/localstore";
   import Nav from "./_components/Nav.svelte";
 
   const { preloading } = stores();
@@ -20,8 +20,6 @@
   export let segment;
 
   setContext("locale", locale);
-
-  if (process.browser) session_token.useLocalStorage();
 </script>
 
 <svelte:head>
